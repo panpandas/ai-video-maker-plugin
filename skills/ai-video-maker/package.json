@@ -1,0 +1,30 @@
+{
+  "name": "ai-video-maker",
+  "version": "2.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "aivideo": "scripts/run-workflow.mjs"
+  },
+  "scripts": {
+    "doctor": "node scripts/run-workflow.mjs --action doctor",
+    "workflow": "node scripts/run-workflow.mjs"
+  },
+  "files": [
+    "SKILL.md",
+    "_meta.json",
+    "clawhub.manifest.json",
+    "skill-card.md",
+    "CHANGELOG.md",
+    "references",
+    "scripts/aivideo-client.mjs",
+    "scripts/contract.mjs",
+    "scripts/credentials.mjs",
+    "scripts/connect.mjs",
+    "scripts/browser-connect.mjs",
+    "scripts/run-workflow.mjs"
+  ]
+}

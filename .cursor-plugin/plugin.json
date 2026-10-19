@@ -1,0 +1,13 @@
+{
+  "name": "ai-video-maker",
+  "version": "2.1.0",
+  "description": "Quote and generate AI videos safely from text, images, frames, or references.",
+  "author": {
+    "name": "AI Video Maker",
+    "email": "support@aivideomaker.ai"
+  },
+  "homepage": "https://aivideomaker.ai/skill",
+  "repository": "https://github.com/panpandas/ai-video-maker-plugin",
+  "license": "MIT-0",
+  "keywords": ["video-generation", "marketing", "automation"]
+}

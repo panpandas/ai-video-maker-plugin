@@ -1,0 +1,15 @@
+{
+  "name": "ai-video-maker-plugin",
+  "version": "2.1.0",
+  "private": true,
+  "description": "Quote and generate AI videos safely from text, images, frames, or references.",
+  "license": "MIT-0",
+  "files": [
+    ".cursor-plugin/",
+    "skills/",
+    "README.md",
+    "TESTING.md",
+    "LICENSE",
+    "provenance.json"
+  ]
+}

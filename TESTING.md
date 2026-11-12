@@ -76,3 +76,21 @@ npm pack --dry-run --ignore-scripts
 ```
 
 These commands reproduce packaging checks only. They do not reproduce the internal 34-test regression suite. The source archive and its published checksum are linked in `provenance.json`; the [official Cursor local testing guide](https://cursor.com/docs/plugins#test-plugins-locally) describes the separate in-app check. To repeat the live quote check, use your own private connection and run the skill's `doctor` and `quote` actions; do not authorize generation merely to test installation.
+
+## Claude Code
+
+Recorded on 2026-11-11.
+
+Installed with:
+
+```sh
+npx skills add panpandas/ai-video-maker-plugin -a claude-code
+```
+
+Ran this prompt:
+
+```text
+Use AI Video Maker to create a 5-second 720p Turbo video of a candle on a wooden table. Check the price first. You may spend up to 15 API credits. Return the video link.
+```
+
+It returned a playable MiniMax H3 clip (5.2 s, 1248x704, native audio): [assets/claude-code-test-candle.mp4](./assets/claude-code-test-candle.mp4).

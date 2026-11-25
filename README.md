@@ -11,32 +11,32 @@ Let Claude Code, Codex, Cursor, or OpenClaw generate MiniMax H3 videos. The agen
 npx skills add panpandas/ai-video-maker-plugin
 ```
 
-Free to install · Node.js 20+ · 5-second 720p clip = 15 credits ($0.15) · 50 free credits on your first API key · no subscription
+Free to install · Node.js 22.20+ for `npx skills` · 5-second 720p clip = 15 credits ($0.15) · 50 free credits on your first API key · no subscription
 
 ---
 
 ## Install
 
-The one-liner above detects your agents and asks where to install. To target one host directly:
+The one-liner above detects your agents and asks where to install. Without an interactive terminal (for example, when an agent runs the command), name the host and add `-y`, as below. To target one host directly:
 
 | Host | Install | Skill lands in |
 | --- | --- | --- |
-| **Claude Code** | `npx skills add panpandas/ai-video-maker-plugin -a claude-code` | `.claude/skills/ai-video-maker` |
-| **Codex** | `npx skills add panpandas/ai-video-maker-plugin -a codex` | `.agents/skills/ai-video-maker` |
-| **Cursor** | `npx skills add panpandas/ai-video-maker-plugin -a cursor` | `.agents/skills/ai-video-maker` |
-| **OpenClaw** | `npx skills add panpandas/ai-video-maker-plugin -a openclaw` | `skills/ai-video-maker` |
+| **Claude Code** | `npx skills add panpandas/ai-video-maker-plugin -a claude-code -y` | `.claude/skills/ai-video-maker` |
+| **Codex** | `npx skills add panpandas/ai-video-maker-plugin -a codex -y` | `.agents/skills/ai-video-maker` |
+| **Cursor** | `npx skills add panpandas/ai-video-maker-plugin -a cursor -y` | `.agents/skills/ai-video-maker` |
+| **OpenClaw** | `npx skills add panpandas/ai-video-maker-plugin -a openclaw -g -y` | `~/.openclaw/skills/ai-video-maker` |
 
-Add `-g` to install for your user instead of the current project.
+For Claude Code, Codex and Cursor, add `-g` to install for your user instead of the current project. OpenClaw loads skills from `~/.openclaw/skills`, so its row already uses `-g`.
 
 **Official installer (alternative).** For Codex, Claude Code, and OpenClaw, AI Video Maker also publishes a versioned installer:
 
 ```sh
-curl -fsSL https://aivideomaker.ai/skills/install-2.1.0.mjs | node --input-type=module - claude   # or: codex | openclaw
+curl -fsSL https://aivideomaker.ai/skills/install-2.1.4.mjs | node --input-type=module - claude   # or: codex | openclaw
 ```
 
 **Cursor plugin.** This repo is also a Cursor plugin (`.cursor-plugin/plugin.json`). For local use, copy the repo into `~/.cursor/plugins/local/ai-video-maker/`, then run **Developer: Reload Window** and confirm the skill appears under **Customize**.
 
-**ClawHub.** The skill is also listed on [ClawHub](https://clawhub.ai/husu/skills/ai-video-maker). <!-- TODO: ClawHub currently shows v1.0.14; remove this note once it is updated to 2.1.0. --> Use one of the methods above to get v2.1.0.
+**ClawHub.** The skill is also listed on [ClawHub](https://clawhub.ai/husu/skills/ai-video-maker).
 
 You may need to start a new agent session before it picks up a newly installed skill.
 
@@ -55,6 +55,8 @@ The agent runs `scripts/connect.mjs`, which prints a **Connect AI Video Maker** 
 - You never paste an API key into chat, code, URLs, or logs.
 - No browser available? Run `node <skill-dir>/scripts/connect.mjs --manual` in your own terminal for hidden key entry (keys are created at [aivideomaker.ai › API keys](https://aivideomaker.ai/app/settings/account/api-keys)).
 - `AIVIDEO_API_KEY` in the agent's secret environment also works and takes precedence.
+- If the agent's command stops before you approve, ask it to run connect again: it resumes the same link and code. Agents that cannot keep a process running can use `connect.mjs --start` to print the link and exit, then run connect again without `--start` after you approve to finish saving the key.
+- If the agent cannot write its private folder `~/.aivideo-maker` (for example, inside a sandbox), connect stops before showing a link and says what to allow, so no approval is wasted.
 
 ## Make your first video
 
@@ -128,11 +130,13 @@ node "$SKILL_ROOT/scripts/run-workflow.mjs" --model minimax --maxCredits 15 \
 node "$SKILL_ROOT/scripts/run-workflow.mjs" --action getStatus --taskId <task_id> # resume
 ```
 
+Add `--platform <codex|claude|openclaw>` to name your agent; it replaces the `AIVIDEO_AGENT_PLATFORM=...` prefix, which does not work in PowerShell or cmd.
+
 Exit codes: `0` success, `1` validation/API/job failure, `2` polling timeout with a resumable task ID.
 
 ## Provenance and testing
 
-The files in `skills/ai-video-maker/` are copied byte-for-byte from the official [v2.1.0 archive](https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz) and verified against its [published SHA-256](https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz.sha256). File hashes are in [`provenance.json`](provenance.json). Validation scope, results, and checks you can reproduce yourself are in [TESTING.md](TESTING.md).
+The files in `skills/ai-video-maker/` are copied byte-for-byte from the official [v2.1.4 archive](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz) and verified against its [published SHA-256](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz.sha256). File hashes are in [`provenance.json`](provenance.json). Validation scope, results, and checks you can reproduce yourself are in [TESTING.md](TESTING.md).
 
 ## Links
 

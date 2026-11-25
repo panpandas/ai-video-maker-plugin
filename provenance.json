@@ -1,66 +1,86 @@
 {
-  "skillVersion": "2.1.0",
-  "sourceArchive": "https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz",
-  "sourceChecksum": "https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz.sha256",
-  "archiveSha256": "0146287b9f24dffb96b0b5721c17499b818264f06f561e88e883764c93890d8e",
-  "verifiedDate": "2026-10-18",
+  "skillVersion": "2.1.4",
+  "sourceArchive": "https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz",
+  "sourceChecksum": "https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz.sha256",
+  "archiveSha256": "143b2a719de969e39d8f8de13d890a769b2ec26178a2a354a24d6125195036df",
+  "verifiedDate": "2026-11-24",
   "licenseSource": "https://spdx.org/licenses/MIT-0.html",
   "files": [
     {
       "path": "skills/ai-video-maker/CHANGELOG.md",
-      "sha256": "bf5e4fbc9b30154a5ea0851745616d0efac93d6b3f000bb572e551628a07f812"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/connect.mjs",
-      "sha256": "558d191ff567864c3955117fc0c5195fed9f68f994a19918aeb74c149e5934c7"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/browser-connect.mjs",
-      "sha256": "fca2dc4f1514737f219a9fbde7465c72ffcfeeecd5cfc67ffc587343a31f350a"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/aivideo-client.mjs",
-      "sha256": "92991211d8123fbe6792d66d9f4265e400c5cf8b59b901812a44b66bdad8fac5"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/contract.mjs",
-      "sha256": "07f35c69db6464b4f138b737b66012513ee125425c9e511c71a66ed80d71fea9"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/credentials.mjs",
-      "sha256": "dda25150a85eb0d637f2acf7b8c02a5bc28519f39873dd78e2e8eb12d317d064"
-    },
-    {
-      "path": "skills/ai-video-maker/scripts/run-workflow.mjs",
-      "sha256": "e5bb56073ebea5889d979cd5f0365536f758390f881e3bc0aed628fda6dcd0d8"
-    },
-    {
-      "path": "skills/ai-video-maker/clawhub.manifest.json",
-      "sha256": "3b76c70c00d53b7f0e4059b71eb4ea5e79edf015530279877941bc1eddcf5d95"
-    },
-    {
-      "path": "skills/ai-video-maker/references/examples.md",
-      "sha256": "bc694ad8446b5a8045aad7284553b2ce29abdd75ff126a10e8c950bd5625c05d"
-    },
-    {
-      "path": "skills/ai-video-maker/references/api-reference.md",
-      "sha256": "d04a6484e1806f78adf1572dcdc63ba0150f051f901293b0c0803271951203bc"
-    },
-    {
-      "path": "skills/ai-video-maker/skill-card.md",
-      "sha256": "ab88f296ea1eb8688bd7c5f2de050ffc3b669f0f7a6ad254e04ef83e3df9d9ae"
-    },
-    {
-      "path": "skills/ai-video-maker/package.json",
-      "sha256": "8781e62ece3d907966be7f500be55b5e94e7d0b478c728cc2b7a2d77c6da674c"
+      "sha256": "ec6b40984f4947acb51dad8f62294b55cd54849435ee64057572e48caaef8e10"
     },
     {
       "path": "skills/ai-video-maker/SKILL.md",
-      "sha256": "09d64dc6f547e0ae2f1af9f6da8a9743d06882719de0da8b7b211438ecc4462a"
+      "sha256": "bd0af0b3755535c55b7bf83cee6890a2b2ba3918e765ae57ce4df2b0ef3223eb"
     },
     {
       "path": "skills/ai-video-maker/_meta.json",
-      "sha256": "81ae339b1f91a241bb2bf2f135673cee16bb3e0eb63c557be661758a7fdeea31"
+      "sha256": "4c737125c940fe956dc9a987d5a626ae01e47d42848a29cca70390b8631367a8"
+    },
+    {
+      "path": "skills/ai-video-maker/clawhub.manifest.json",
+      "sha256": "f275592e6710a930ca5ff7895657cf3f5b41d8069be8eb91d7dee98f2d9469b3"
+    },
+    {
+      "path": "skills/ai-video-maker/package.json",
+      "sha256": "dae88e5e4a63ab596a21a03cef2eb4c99614cbd21b379727f78d55092cfa9f1d"
+    },
+    {
+      "path": "skills/ai-video-maker/references/api-reference.md",
+      "sha256": "fb9bad5201b605d0a40558d83a5721ef4470538fecb1fbd66ad826f5b2dfaf5e"
+    },
+    {
+      "path": "skills/ai-video-maker/references/examples.md",
+      "sha256": "19062070b372e266586ae1c1ed17a4f0275fa34b2ca28add3ef12f5f35ab067a"
+    },
+    {
+      "path": "skills/ai-video-maker/references/prompting.md",
+      "sha256": "21acf77da1461c48d8949275eda7fd56a4960f5d474ec4029b3d5e3e2e425154"
+    },
+    {
+      "path": "skills/ai-video-maker/references/recipes.md",
+      "sha256": "a8e7ea8cbc857c5e02e5acf9ac20a23822eaa0a681cb0814456b683be76f59ee"
+    },
+    {
+      "path": "skills/ai-video-maker/references/recovery.md",
+      "sha256": "6a51f148aad6ece075c46d415ad627409081f7a695667b45011623a6f24a6d94"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/aivideo-client.mjs",
+      "sha256": "ad405cb02c113546a4f3843e65ffe0f4ec61d3e92dcefc19592fc5d87b07b657"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/browser-connect.mjs",
+      "sha256": "2219d0185147cd19441153c5eed725be4ab40cae1b46069e8b9b11c024245dd7"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/connect.mjs",
+      "sha256": "7fd88af9f4a49b662bf92bd55c5ee99f3c8d3e6249361e2d5e8db120b227b78f"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/contract.mjs",
+      "sha256": "8d593171fe13c0aeb6d8677fe2944efecf5fe2b6d096b1416aec575b5505e175"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/credentials.mjs",
+      "sha256": "236d23c84f3df0a1b70e1e90da76e960300b6b4fbeae08df2d2e27e46a620fdd"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/first-video.mjs",
+      "sha256": "df6f9b00090f0ebd837ad6b132dba17f01e16e8fcb856cbf86263fc340c4b968"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/job-state.mjs",
+      "sha256": "57c2bdb6219b509871c9dbd5167d45111072f3422ece4fab1100c0f0391e8c83"
+    },
+    {
+      "path": "skills/ai-video-maker/scripts/run-workflow.mjs",
+      "sha256": "e3364648a33de2fb8539696803de8b3c71d095c22e856d9e71c13610e55f096f"
+    },
+    {
+      "path": "skills/ai-video-maker/skill-card.md",
+      "sha256": "c45b7f05e7c5ea846e0655ec10c2676f1abebc34291dcf2cdcd3f0dda2442e8e"
     }
   ]
 }

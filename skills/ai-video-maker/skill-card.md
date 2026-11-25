@@ -14,7 +14,7 @@ MIT-0
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 20 or newer to run the skill. Installing or updating it with the `skills` CLI (`npx skills add https://aivideomaker.ai/skills/ai-video-maker.tgz`) needs Node.js 22.20 or newer
 - A browser-approved connection started by `node "$SKILL_ROOT/scripts/connect.mjs"`, or `AIVIDEO_API_KEY` in the agent’s secret environment. The helper saves the key privately outside your project and verifies setup without spending credits. Hidden terminal key entry remains available with `--manual`.
 - An AI Video Maker account; the first API key includes 50 introductory API credits
 
@@ -48,7 +48,8 @@ A five-second 720p Turbo video costs 15 credits ($0.15). The server quote is aut
 - Stable idempotency keys for safe retries
 - Per-key daily credit, request-rate, and low-balance controls
 - Refunded credits for terminal provider failures
-- Resumable polling timeout with the original task ID
+- Resumable polling timeout with the original task ID and a dedicated wait action
+- Optional private state file saves recovery identity before submission
 
 ## Known Risks and Mitigations
 
@@ -84,4 +85,4 @@ Normalized results include `ok`, `status`, `taskId`, `credits`, `data`, `errorCo
 
 ## Skill Version
 
-2.1.0
+2.1.4

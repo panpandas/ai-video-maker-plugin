@@ -31,12 +31,12 @@ Add `-g` to install for your user instead of the current project.
 **Official installer (alternative).** For Codex, Claude Code, and OpenClaw, AI Video Maker also publishes a versioned installer:
 
 ```sh
-curl -fsSL https://aivideomaker.ai/skills/install-2.1.0.mjs | node --input-type=module - claude   # or: codex | openclaw
+curl -fsSL https://aivideomaker.ai/skills/install-2.1.4.mjs | node --input-type=module - claude   # or: codex | openclaw
 ```
 
 **Cursor plugin.** This repo is also a Cursor plugin (`.cursor-plugin/plugin.json`). For local use, copy the repo into `~/.cursor/plugins/local/ai-video-maker/`, then run **Developer: Reload Window** and confirm the skill appears under **Customize**.
 
-**ClawHub.** The skill is also listed on [ClawHub](https://clawhub.ai/husu/skills/ai-video-maker). <!-- TODO: ClawHub currently shows v1.0.14; remove this note once it is updated to 2.1.0. --> Use one of the methods above to get v2.1.0.
+**ClawHub.** The skill is also listed on [ClawHub](https://clawhub.ai/husu/skills/ai-video-maker).
 
 You may need to start a new agent session before it picks up a newly installed skill.
 
@@ -55,6 +55,8 @@ The agent runs `scripts/connect.mjs`, which prints a **Connect AI Video Maker** 
 - You never paste an API key into chat, code, URLs, or logs.
 - No browser available? Run `node <skill-dir>/scripts/connect.mjs --manual` in your own terminal for hidden key entry (keys are created at [aivideomaker.ai › API keys](https://aivideomaker.ai/app/settings/account/api-keys)).
 - `AIVIDEO_API_KEY` in the agent's secret environment also works and takes precedence.
+- If the agent's command stops before you approve, ask it to run connect again: it resumes the same link and code. Agents that cannot keep a process running can use `connect.mjs --start`.
+- If the agent cannot write its private folder `~/.aivideo-maker` (for example, inside a sandbox), connect stops before showing a link and says what to allow, so no approval is wasted.
 
 ## Make your first video
 
@@ -128,11 +130,13 @@ node "$SKILL_ROOT/scripts/run-workflow.mjs" --model minimax --maxCredits 15 \
 node "$SKILL_ROOT/scripts/run-workflow.mjs" --action getStatus --taskId <task_id> # resume
 ```
 
+Add `--platform <codex|claude|openclaw>` to name your agent; it replaces the `AIVIDEO_AGENT_PLATFORM=...` prefix, which does not work in PowerShell or cmd.
+
 Exit codes: `0` success, `1` validation/API/job failure, `2` polling timeout with a resumable task ID.
 
 ## Provenance and testing
 
-The files in `skills/ai-video-maker/` are copied byte-for-byte from the official [v2.1.0 archive](https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz) and verified against its [published SHA-256](https://aivideomaker.ai/skills/ai-video-maker-2.1.0.tgz.sha256). File hashes are in [`provenance.json`](provenance.json). Validation scope, results, and checks you can reproduce yourself are in [TESTING.md](TESTING.md).
+The files in `skills/ai-video-maker/` are copied byte-for-byte from the official [v2.1.4 archive](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz) and verified against its [published SHA-256](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz.sha256). File hashes are in [`provenance.json`](provenance.json). Validation scope, results, and checks you can reproduce yourself are in [TESTING.md](TESTING.md).
 
 ## Links
 

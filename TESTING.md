@@ -1,8 +1,17 @@
 # Validation record
 
+## Version 2.1.4, recorded on November 24, 2026
+
+- The files in `skills/ai-video-maker/` were replaced with the official [v2.1.4 archive](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz), whose SHA-256 matched the [published checksum](https://aivideomaker.ai/skills/ai-video-maker-2.1.4.tgz.sha256). All 19 file hashes are in `provenance.json`.
+- The public checks below pass against this version.
+- Installing this repository with `npx skills add` into a scratch folder placed the skill under `.agents/skills/ai-video-maker` and `.claude/skills/ai-video-maker`.
+- The paid-generation, Cursor and Claude Code records below were made with earlier versions and were not repeated for this one.
+
+## Version 2.1.0, recorded on October 18, 2026
+
 Validation recorded on October 18, 2026, for the public AI Video Maker skill version **2.1.0**.
 
-## Recorded results
+### Recorded results
 
 | Check                                                | Result                                                  |
 | ---------------------------------------------------- | ------------------------------------------------------- |
@@ -42,7 +51,7 @@ import { createHash } from "node:crypto";
 
 const manifest = JSON.parse(await readFile(".cursor-plugin/plugin.json", "utf8"));
 assert.equal(manifest.name, "ai-video-maker");
-assert.equal(manifest.version, "2.1.0");
+assert.equal(manifest.version, "2.1.4");
 assert.match(manifest.name, /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/);
 
 const skill = await readFile("skills/ai-video-maker/SKILL.md", "utf8");
@@ -52,17 +61,17 @@ assert.match(frontmatter[1], /^name: ai-video-maker$/m);
 assert.match(frontmatter[1], /^description: \S.+$/m);
 
 const provenance = JSON.parse(await readFile("provenance.json", "utf8"));
-assert.equal(provenance.skillVersion, "2.1.0");
+assert.equal(provenance.skillVersion, "2.1.4");
 assert.equal(
   provenance.archiveSha256,
-  "0146287b9f24dffb96b0b5721c17499b818264f06f561e88e883764c93890d8e",
+  "143b2a719de969e39d8f8de13d890a769b2ec26178a2a354a24d6125195036df",
 );
-assert.equal(provenance.files.length, 14);
+assert.equal(provenance.files.length, 19);
 for (const file of provenance.files) {
   const bytes = await readFile(file.path);
   assert.equal(createHash("sha256").update(bytes).digest("hex"), file.sha256, file.path);
 }
-console.log("Manifest, frontmatter, and 14 source hashes passed.");
+console.log("Manifest, frontmatter, and 19 source hashes passed.");
 JS
 ```
 

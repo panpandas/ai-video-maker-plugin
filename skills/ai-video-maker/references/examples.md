@@ -50,7 +50,7 @@ node "$SKILL_ROOT/scripts/run-workflow.mjs" --action quote --model minimax --pay
 node "$SKILL_ROOT/scripts/run-workflow.mjs" --model minimax --maxCredits 15 --payload '{"content":"A cinematic sunset over a futuristic city skyline","aspectRatio":"16:9","duration":5,"resolution":"720p","tier":"turbo"}'
 ```
 
-MiniMax also accepts `imageUrl`, `lastFrameUrl`, up to 4 `referenceImageUrls`, one `referenceVideoUrl`, and up to 2 `referenceAudioUrls`. Use frame inputs or reference assets, not both. `resolution` accepts only `720p` and `1080p`; `tier=base` adds 1 credit per second.
+MiniMax also accepts `imageUrl`, `lastFrameUrl`, up to 4 `referenceImageUrls`, one `referenceVideoUrl`, and up to 2 `referenceAudioUrls`. Use frame inputs or reference assets, not both. `resolution` accepts only `720p` and `1080p`; `tier=base` adds 1 credit per second, and `referenceVideoUrl` adds a flat 2 credits.
 
 At the published 720p Turbo rate, this 5-second request costs 15 API credits (USD $0.15). The first API key created by an account receives 50 introductory credits. API credits are separate from website subscription entitlements.
 
@@ -108,7 +108,8 @@ Typical API error:
 {
   "status": "FAILED",
   "errorCode": "INSUFFICIENT_CREDITS",
-  "message": "Insufficient credits"
+  "message": "Insufficient credits",
+  "topUpUrl": "https://aivideomaker.ai/skill?utm_source=agent_skill&utm_medium=top_up&utm_campaign=api_credits#pricing"
 }
 ```
 
@@ -120,15 +121,21 @@ Skill runtime output:
   "status": "FAILED",
   "errorCode": "INSUFFICIENT_CREDITS",
   "errorMessage": "Insufficient credits",
-  "taskId": null
+  "taskId": null,
+  "topUpUrl": "https://aivideomaker.ai/skill?utm_source=agent_skill&utm_medium=top_up&utm_campaign=api_credits#pricing"
 }
 ```
 
-Recommended next actions:
+Nothing was charged and no task was created. Recommended next actions:
 
-- Reduce `duration` or use a lower-cost model.
-- Ensure the account has enough credits.
-- Retry after top-up.
+- Tell the user how many credits the request needs and how many they have.
+- Show `topUpUrl` so they can add API credits. Packs are one-time purchases; no subscription is required.
+- Offer a shorter `duration` or a lower-cost configuration and quote it.
+- After they add credits, quote again and continue with the same request.
+
+An unaffordable `--action quote` returns the same `topUpUrl` before anything is submitted.
+
+One exception: when recovering a request that was already accepted, its own charge may be why the quote is now unaffordable. Resume it by task ID or replay it unchanged with its idempotency key; do not send the user to buy credits for a video they already paid for.
 
 The command exits with status `1` for this failure.
 
@@ -180,6 +187,10 @@ Raw API response example:
 ```
 
 ## 8) Resume after a polling timeout
+
+Use `--action wait --taskId <task_id>` to continue waiting without creating a task.
+For new generation, pass a private `--stateFile <path>` to persist its key before
+submission. See [recovery.md](recovery.md) for interruption recovery.
 
 A timeout returns exit status `2`, `errorCode: "POLL_TIMEOUT"`, and the existing `taskId`. Resume the existing paid task instead of submitting another create request:
 

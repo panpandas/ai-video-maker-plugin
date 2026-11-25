@@ -14,20 +14,22 @@ For direct REST calls, keep the key in `AIVIDEO_API_KEY`. The installed skill al
 
 ## MiniMax H3 pricing
 
-One API credit is USD $0.01. MiniMax H3 costs $0.03/second at 720p Turbo, $0.04/second at 720p Base or 1080p Turbo, and $0.05/second at 1080p Base. A 5-second 720p Turbo clip costs 15 credits ($0.15); a 10-second clip costs 30 credits ($0.30). The quote endpoint is authoritative for a specific request.
+One API credit is USD $0.01. MiniMax H3 costs $0.03/second at 720p Turbo, $0.04/second at 720p Base or 1080p Turbo, and $0.05/second at 1080p Base. A 5-second 720p Turbo clip costs 15 credits ($0.15); a 10-second clip costs 30 credits ($0.30). A request that includes `referenceVideoUrl` adds a flat 2 API credits. The quote endpoint is authoritative for a specific request.
 
 ## Endpoints
 
 ### 1) Check setup and balance
 
 - `GET /api/v1/account`
-- Non-billable. Returns the current balance, key limits, credit warning, API version, skill version, and supported models.
+- Non-billable. Returns the current balance, key limits, credit warning, API version, skill version, and supported models. It adds `topUpUrl` (where the account holder adds API credits) only when the balance is below the cheapest MiniMax H3 clip or the key's credit warning has triggered.
 
 ### 2) Quote a generation
 
 - `POST /api/v1/quote/{model}`
 - Send the same JSON payload as generation.
 - Non-billable. Returns `credits`, `listPriceUsd`, `currentBalance`, `affordable`, and `billable: false`.
+- When `affordable` is `false`, the response also includes `creditsShort` and `topUpUrl`. Show that link instead of submitting a new request.
+- `affordable` compares the price with the current balance only. After a request was accepted, its own debit can make the same quote unaffordable; replaying that request with its idempotency key still returns the existing task.
 
 ### 3) Create generation task
 
@@ -60,14 +62,14 @@ One API credit is USD $0.01. MiniMax H3 costs $0.03/second at 720p Turbo, $0.04/
 - `imageUrl`: string or null, optional (first-frame image URL or image data URI)
 - `lastFrameUrl`: string or null, optional (last-frame image URL or image data URI)
 - `referenceImageUrls`: string[], optional, max 4 image URLs or image data URIs
-- `referenceVideoUrl`: string or null, optional, public video URL
+- `referenceVideoUrl`: string or null, optional, public video URL (adds a flat 2 credits)
 - `referenceAudioUrls`: string[], optional, max 2 public audio URLs
 - `aspectRatio`: `auto` | `21:9` | `16:9` | `4:3` | `1:1` | `3:4` | `9:16`, optional, default `16:9`
 - `duration`: number, optional, 5–20 seconds, default `5`
 - `resolution`: `720p` | `1080p`, optional, default `720p` (480p is not supported)
 - `tier`: `turbo` | `base`, optional, default `turbo`
 - Frame inputs and reference assets are mutually exclusive.
-- Credits: `duration * (3 for 720p or 4 for 1080p)`, plus `duration * 1` when `tier=base`
+- Credits: `duration * (3 for 720p or 4 for 1080p)`, plus `duration * 1` when `tier=base`, plus a flat `2` when `referenceVideoUrl` is set
 
 ##### `t2v_v3` (MiniMax H3 · 1080p Turbo · legacy text)
 
@@ -141,7 +143,8 @@ One API credit is USD $0.01. MiniMax H3 costs $0.03/second at 720p Turbo, $0.04/
 {
   "status": "FAILED",
   "errorCode": "INSUFFICIENT_CREDITS",
-  "message": "Insufficient credits"
+  "message": "Insufficient credits",
+  "topUpUrl": "https://aivideomaker.ai/skill?utm_source=agent_skill&utm_medium=top_up&utm_campaign=api_credits#pricing"
 }
 ```
 
@@ -236,3 +239,9 @@ The scripts in this skill wrap raw API responses into a normalized shape for aut
 - Exit `1`: validation, API, terminal job, or output-retrieval failure
 - Exit `2`: polling timed out; use the returned `taskId` to resume without creating a duplicate
 - Debug diagnostics are written to stderr. Structured JSON is written to stdout.
+
+## Skill recovery commands
+
+Creation accepts optional `--stateFile <private_path>` to persist a stable key before submission and a task ID before polling. `--action wait --taskId <id>` or `--action wait --stateFile <path>` continues polling an existing task without generation. See [recovery.md](recovery.md). Product-first-video inputs use MiniMax `imageUrl`, not `image`. These helpers need no onboarding analytics endpoint.
+
+`connect.mjs` keeps a pending browser approval in the private credentials directory until it completes or expires. Running it again resumes the same link and code; `--start` prints the link and exits without waiting. `--reconnect` starts a new approval that replaces the saved key; an interrupted reconnect is resumed by the next run. A link with under a minute left is not shown again: an approval already given on it is collected, otherwise a new link is issued. Only a denied, expired or already-used approval ends the session early; other errors keep it resumable.

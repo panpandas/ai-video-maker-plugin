@@ -11,22 +11,22 @@ Let Claude Code, Codex, Cursor, or OpenClaw generate MiniMax H3 videos. The agen
 npx skills add panpandas/ai-video-maker-plugin
 ```
 
-Free to install · Node.js 20+ · 5-second 720p clip = 15 credits ($0.15) · 50 free credits on your first API key · no subscription
+Free to install · Node.js 22.20+ for `npx skills` · 5-second 720p clip = 15 credits ($0.15) · 50 free credits on your first API key · no subscription
 
 ---
 
 ## Install
 
-The one-liner above detects your agents and asks where to install. To target one host directly:
+The one-liner above detects your agents and asks where to install. Without an interactive terminal (for example, when an agent runs the command), name the host and add `-y`, as below. To target one host directly:
 
 | Host | Install | Skill lands in |
 | --- | --- | --- |
-| **Claude Code** | `npx skills add panpandas/ai-video-maker-plugin -a claude-code` | `.claude/skills/ai-video-maker` |
-| **Codex** | `npx skills add panpandas/ai-video-maker-plugin -a codex` | `.agents/skills/ai-video-maker` |
-| **Cursor** | `npx skills add panpandas/ai-video-maker-plugin -a cursor` | `.agents/skills/ai-video-maker` |
-| **OpenClaw** | `npx skills add panpandas/ai-video-maker-plugin -a openclaw` | `skills/ai-video-maker` |
+| **Claude Code** | `npx skills add panpandas/ai-video-maker-plugin -a claude-code -y` | `.claude/skills/ai-video-maker` |
+| **Codex** | `npx skills add panpandas/ai-video-maker-plugin -a codex -y` | `.agents/skills/ai-video-maker` |
+| **Cursor** | `npx skills add panpandas/ai-video-maker-plugin -a cursor -y` | `.agents/skills/ai-video-maker` |
+| **OpenClaw** | `npx skills add panpandas/ai-video-maker-plugin -a openclaw -g -y` | `~/.openclaw/skills/ai-video-maker` |
 
-Add `-g` to install for your user instead of the current project.
+For Claude Code, Codex and Cursor, add `-g` to install for your user instead of the current project. OpenClaw loads skills from `~/.openclaw/skills`, so its row already uses `-g`.
 
 **Official installer (alternative).** For Codex, Claude Code, and OpenClaw, AI Video Maker also publishes a versioned installer:
 
@@ -55,7 +55,7 @@ The agent runs `scripts/connect.mjs`, which prints a **Connect AI Video Maker** 
 - You never paste an API key into chat, code, URLs, or logs.
 - No browser available? Run `node <skill-dir>/scripts/connect.mjs --manual` in your own terminal for hidden key entry (keys are created at [aivideomaker.ai › API keys](https://aivideomaker.ai/app/settings/account/api-keys)).
 - `AIVIDEO_API_KEY` in the agent's secret environment also works and takes precedence.
-- If the agent's command stops before you approve, ask it to run connect again: it resumes the same link and code. Agents that cannot keep a process running can use `connect.mjs --start`.
+- If the agent's command stops before you approve, ask it to run connect again: it resumes the same link and code. Agents that cannot keep a process running can use `connect.mjs --start` to print the link and exit, then run connect again without `--start` after you approve to finish saving the key.
 - If the agent cannot write its private folder `~/.aivideo-maker` (for example, inside a sandbox), connect stops before showing a link and says what to allow, so no approval is wasted.
 
 ## Make your first video
